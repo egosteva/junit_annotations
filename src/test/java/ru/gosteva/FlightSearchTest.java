@@ -1,13 +1,16 @@
 package ru.gosteva;
 
 import com.codeborne.selenide.CollectionCondition;
+import com.codeborne.selenide.Condition;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.List;
 import java.util.stream.Stream;
 
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Configuration.baseUrl;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
@@ -30,4 +33,27 @@ public class FlightSearchTest extends TestBase {
         webdriver().shouldHave(currentFrameUrl(baseUrl + path));
         $$("._3DD68").shouldHave(CollectionCondition.texts(expectedOptions));
     }
+
+    @ValueSource(strings = {
+            "Эконом", "Бизнес", "Премиум", "Первый"
+    })
+    @ParameterizedTest(name = "Выбор класса перелета '{0}' для поиска рейса из Москвы в Батуми на 27032023")
+    void selectFlightClassSearchingFlightFromMoscowToBatumiForTomorrow(String flightClass){
+        $("[title=Откуда]").setValue("Москва");
+        $("[data-locator=dropdown-overlay]").findElement(byText("Москва")).click();
+
+        $("[title=Куда]").setValue("Батуми");
+        $("[data-locator=dropdown-overlay]").findElement(byText("Батуми")).click();
+
+        $("[data-locator=Datepicker]").hover();
+        $("[data-locator='27032023']").click();
+
+        $("[name=travellers-trigger]").click();
+        $("button[type='submit']").click();
+
+        $("[data-test=service-classes]").findElement(byText(flightClass)).click();
+        $("#searchPage").shouldBe(visible);
+    }
+
+
 }
