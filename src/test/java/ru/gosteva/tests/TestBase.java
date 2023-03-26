@@ -1,4 +1,4 @@
-package ru.gosteva;
+package ru.gosteva.tests;
 
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.AfterEach;
