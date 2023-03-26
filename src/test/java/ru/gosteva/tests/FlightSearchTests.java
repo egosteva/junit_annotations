@@ -17,7 +17,7 @@ import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverConditions.currentFrameUrl;
 import static ru.gosteva.tests.DynamicTestData.tomorrow;
 
-public class FlightSearchTest extends TestBase {
+public class FlightSearchTests extends TestBase {
 
     static Stream<Arguments> headerShouldContainOptionsForSelectedLocale() {
         return Stream.of(
@@ -42,20 +42,15 @@ public class FlightSearchTest extends TestBase {
     void selectFlightClassSearchingFlightFromMoscowToBatumiForTomorrow(String flightClass) {
         $("[title=Откуда]").setValue("Москва");
         $("[data-locator=dropdown-overlay]").findElement(byText("Москва")).click();
-
         $("[title=Куда]").setValue("Батуми");
         $("[data-locator=dropdown-overlay]").findElement(byText("Батуми")).click();
-
         $("[data-locator=Datepicker]").hover();
         $("[data-locator='" + tomorrow + "']").click();
-
         $("[name=travellers-trigger]").click();
         $("[data-test=service-classes]").findElement(byText(flightClass)).click();
-
         $("button[type='submit']").click();
         $("#searchPage").shouldBe(visible);
     }
-
 
     @CsvSource(value = {
             "Москва, Бангкок",
@@ -66,13 +61,10 @@ public class FlightSearchTest extends TestBase {
     void selectDepartureCityAndDestinationCitySearchingFlightForTomorrow(String departureCity, String destinationCity) {
         $("[title=Откуда]").setValue(departureCity);
         $("[data-locator=dropdown-overlay]").findElement(byText(departureCity)).click();
-
         $("[title=Куда]").setValue(destinationCity);
         $("[data-locator=dropdown-overlay]").findElement(byText(destinationCity)).click();
-
         $("[data-locator=Datepicker]").hover();
         $("[data-locator='" + tomorrow + "']").click();
-
         $("button[type='submit']").click();
         $("#searchPage").shouldBe(visible);
     }
