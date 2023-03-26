@@ -3,6 +3,7 @@ package ru.gosteva.tests;
 import com.codeborne.selenide.CollectionCondition;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -37,8 +38,8 @@ public class FlightSearchTest extends TestBase {
     @ValueSource(strings = {
             "Эконом", "Бизнес", "Премиум", "Первый"
     })
-    @ParameterizedTest(name = "Выбор класса перелета '{0}' для поиска рейса из Москвы в Батуми на завтра")
-    void selectFlightClassSearchingFlightFromMoscowToBatumiForTomorrow(String flightClass){
+    @ParameterizedTest(name = "Выбор класса перелета {0} для поиска рейса из Москвы в Батуми на завтра")
+    void selectFlightClassSearchingFlightFromMoscowToBatumiForTomorrow(String flightClass) {
         $("[title=Откуда]").setValue("Москва");
         $("[data-locator=dropdown-overlay]").findElement(byText("Москва")).click();
 
