@@ -69,4 +69,3 @@ public class FlightSearchTests extends TestBase {
         $("#searchPage").shouldBe(visible);
     }
 }
-
