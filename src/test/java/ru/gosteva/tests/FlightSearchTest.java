@@ -55,4 +55,26 @@ public class FlightSearchTest extends TestBase {
         $("button[type='submit']").click();
         $("#searchPage").shouldBe(visible);
     }
+
+
+    @CsvSource(value = {
+            "Москва, Бангкок",
+            "Ереван, Нью-Йорк",
+            "Прага,  Непалгандж"
+    })
+    @ParameterizedTest(name = "Выбор города отправления {0} и города назначения {1} для поиска рейса на завтра")
+    void selectDepartureCityAndDestinationCitySearchingFlightForTomorrow(String departureCity, String destinationCity) {
+        $("[title=Откуда]").setValue(departureCity);
+        $("[data-locator=dropdown-overlay]").findElement(byText(departureCity)).click();
+
+        $("[title=Куда]").setValue(destinationCity);
+        $("[data-locator=dropdown-overlay]").findElement(byText(destinationCity)).click();
+
+        $("[data-locator=Datepicker]").hover();
+        $("[data-locator='" + tomorrow + "']").click();
+
+        $("button[type='submit']").click();
+        $("#searchPage").shouldBe(visible);
+    }
 }
+
