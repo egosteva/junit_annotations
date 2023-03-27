@@ -12,12 +12,13 @@ import static com.codeborne.selenide.Selenide.open;
 public class TestBase {
     @BeforeAll
     static void beforeAll() {
+        Configuration.browserSize = "1920x1080";
+        Configuration.pageLoadStrategy = "eager";
         baseUrl = "https://www.onetwotrip.com/";
     }
 
     @BeforeEach
     void beforeEach() {
-        Configuration.browserSize = "1920x1080";
         open(baseUrl);
     }
 
